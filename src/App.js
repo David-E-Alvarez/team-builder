@@ -5,13 +5,22 @@ import data from './data';
 import './App.css';
 
 function App() {
-  const [teamMembers] = useState(data);
-  console.log("teamMembers: ", teamMembers);
+  const [teamMembers, setTeamMember] = useState(data);
+  //console.log("teamMembers: ", teamMembers);
+  const addNewTeamMember = teamMember => {
+    const newTeamMember = {
+      id: teamMember.id,
+      name: teamMember.name,
+      email: teamMember.email,
+      role: teamMember.role
+    };
+    setTeamMember([...teamMembers, newTeamMember]);
+  };
   return (
     <div className="App">
-      <Form/>
+      <Form addNewTeamMember={addNewTeamMember}/>
       {teamMembers.map(teamMember => {
-        return <TeamMember id={teamMember.id} teamMember={teamMember}/>
+        return <TeamMember key={teamMember.id} teamMember={teamMember}/>
       })}
     </div>
   );
